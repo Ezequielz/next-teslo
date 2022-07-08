@@ -4,26 +4,28 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { SWRConfig } from 'swr';
 
 import { lightTheme } from '../themes';
-import { CartProvider, UiProvider } from '../context';
+import { AuthProvider, CartProvider, UiProvider } from '../context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
 
-    <SWRConfig 
+  <SWRConfig 
     value={{
       // refreshInterval: 3000,
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
     }}
   >
-    <CartProvider >
-      <UiProvider>
-        <ThemeProvider theme={ lightTheme } >
-          <CssBaseline />
-            <Component { ...pageProps } />
+    <AuthProvider>
+      <CartProvider >
+        <UiProvider>
+          <ThemeProvider theme={ lightTheme } >
+            <CssBaseline />
+              <Component { ...pageProps } />
 
-        </ThemeProvider>
-      </UiProvider>
-    </CartProvider>
+          </ThemeProvider>
+        </UiProvider>
+      </CartProvider>
+    </AuthProvider>
 
   </SWRConfig>
   )
