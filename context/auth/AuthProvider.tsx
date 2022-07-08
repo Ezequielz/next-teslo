@@ -37,6 +37,10 @@ export const AuthProvider:FC<Props> = ({ children }) => {
       //llamar al endpoint
       // revalidar el token guardando el nuevo
       //dispach login
+      if ( !Cookies.get('token') ) {
+         return
+      }
+      
       try {
          const { data } = await tesloApi.get('/user/validate-token');
          const { token, user } = data;
