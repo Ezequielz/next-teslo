@@ -1,8 +1,8 @@
 // import { GetServerSideProps } from 'next'
-import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { useContext, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Cookies from 'js-cookie';
 
 import { ShopLayout } from '../../components/layouts/ShopLayout';
@@ -39,10 +39,24 @@ const AddressPage = () => {
 
     const router = useRouter()
     const { updateAddress } = useContext(CartContext)
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         defaultValues: getAddressFromCookies()
     });
-
+    
+    const [defaultCountry, setDefaultCountry] = useState('');
+   
+    useEffect(() => {
+       
+        const addressFromCookies  = getAddressFromCookies()
+    
+        reset(addressFromCookies);
+        setDefaultCountry(addressFromCookies.country || '')
+      
+        
+    }, [reset, getAddressFromCookies])
+    
+    if (defaultCountry === '') {return null}
+    
     const onSubmitAddress = (data: FormData ) =>{
         // console.log(data)
 
@@ -105,6 +119,7 @@ const AddressPage = () => {
                             helperText = { errors.address?.message }
                         />
                     </Grid>
+
                     <Grid item xs={12} sm={6}> 
                         <TextField 
                             label="Dirección 2 opcional)" 
@@ -131,6 +146,7 @@ const AddressPage = () => {
                             
                         />
                     </Grid>
+
                     <Grid item xs={12} sm={6}> 
                         <TextField 
                             label="Ciudad" 
@@ -148,6 +164,8 @@ const AddressPage = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}> 
+
+               
                         <FormControl fullWidth>
                         
                             <TextField
@@ -155,8 +173,8 @@ const AddressPage = () => {
                                 key={Cookies.get('country') || countries[0].code}
                                 variant="filled"
                                 label="País"
-                                type="text"
-                                defaultValue={ Cookies.get('country') || countries[0].code }
+                                // type="text"
+                                defaultValue={ defaultCountry }
                                 { ...register('country', {
                                     required: 'Este campo es requerido',
                                     minLength: { value: 2, message: 'Mínimo 2 caracteres' }
