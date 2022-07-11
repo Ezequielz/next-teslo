@@ -55,7 +55,7 @@ const AddressPage = () => {
         
     }, [reset, getAddressFromCookies])
     
-    if (defaultCountry === '') {return null}
+    // if (defaultCountry === '') {return null}
     
     const onSubmitAddress = (data: FormData ) =>{
         // console.log(data)
