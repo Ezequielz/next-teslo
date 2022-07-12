@@ -38,6 +38,7 @@ const orderSchema = new Schema({
     paidAt        : { type: String },
 
     // name: { type: String, required: true },
+    transactionId : { type: String },
 
 }, {
     timestamps: true
