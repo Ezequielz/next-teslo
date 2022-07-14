@@ -116,7 +116,14 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
                         <Divider sx={{ my:1 }} />
 
-                        <OrderSummary  order={ order } />
+                        <OrderSummary 
+                            orderValues={{
+                                numberOfItems: order.numberOfItems,
+                                subTotal: order.subTotal,
+                                total: order.total,
+                                tax: order.tax,
+                            }} 
+                        />
 
                         <Box sx={{ mt: 3 }} display="flex" flexDirection="column" >
                        

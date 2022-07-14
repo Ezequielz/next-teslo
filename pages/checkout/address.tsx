@@ -53,7 +53,7 @@ const AddressPage = () => {
         setDefaultCountry(addressFromCookies.country || '')
       
         
-    }, [reset, getAddressFromCookies])
+    }, [reset])
     
     // if (defaultCountry === '') {return null}
     

@@ -6,6 +6,7 @@ import { db } from '../../../database';
 import { Order } from '../../../models';
 
 import { ObjectId } from 'mongodb'
+import { getSession } from 'next-auth/react';
 
 
 type Data = {
@@ -59,6 +60,11 @@ const getPaypalBearerToken = async(): Promise<string | null> => {
 const payOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     //TODO validar session del usuario
+    const session : any = await getSession({ req });
+
+    // if ( !session ) {
+    //     return res.status(401).json({ message: 'Debe de estar autenticado para hacer esto' })
+    // }
 
 
     const paypalBearerToken = await getPaypalBearerToken();
@@ -105,5 +111,5 @@ const payOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     await db.disconnect();
 
-    return  res.status(200).json({ message: "Orden pagada" })
+    return  res.status(200).json({ message: `${session}` })
 }

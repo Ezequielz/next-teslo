@@ -184,19 +184,16 @@ export const CartProvider:FC<Props> = ({ children }) => {
 
       } catch (error) {
          if ( axios.isAxiosError(error) ) {
-            return {
-               hasError: true,
-               message: error.response?.data.message
-            }
+             return {
+                 hasError: true,
+                 message: 'error.response?.data.message'
+             }
          }
-
          return {
-            hasError: true,
-            message: 'Error no controlado, hable con el administrador'
+             hasError: true,
+             message : 'Error no controlado, hable con el administrador'
          }
-
-
-   }
+     }
    }
    return (
        <CartContext.Provider value={{

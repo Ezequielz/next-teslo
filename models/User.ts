@@ -11,7 +11,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         enum: {
-            values: ['admin','client'],
+            values: ['admin','client','super-user','SEO'],
             message: '{VALUE} no es un role válido',
             default: 'client',
             required: true
