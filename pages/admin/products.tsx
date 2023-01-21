@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
         width: 200 ,
         renderCell: ( {row}: GridValueGetterParams ) => {
             return (
-                <NextLink href={`/admin/products/${ row.slug }`} passHref>
+                <NextLink href={`/admin/products/${ row.slug }`} passHref legacyBehavior>
                     <Link underline='always'>
                         { row.title }
                     </Link>

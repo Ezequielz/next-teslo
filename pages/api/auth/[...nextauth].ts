@@ -6,6 +6,12 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { dbUsers } from "../../../database";
 
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+}
+
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -21,9 +27,7 @@ export default NextAuth({
       async authorize(credentials) {
 
         console.log({credentials})
-
         // return { name: 'Juan', correo: 'juan@google.com', role: 'admin'};
-
         return await dbUsers.checkUserEmailPassword( credentials!.email, credentials!.password )
 
       }
@@ -91,9 +95,11 @@ export default NextAuth({
     async session({ session, token, user }) {
 
       // console.log({ session, token, user })
-      session.accessToken = token.accessToken;
+      
+      session.accessToken = token.accessToken as any;
       session.user = token.user as any;
       return session;
+
     }
     
   }
