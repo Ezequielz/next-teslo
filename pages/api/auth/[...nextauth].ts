@@ -24,10 +24,12 @@ export default NextAuth({
         email: { label: 'Correo:', type: 'email', placeholder: 'correo@gmail.com' },
         password: { label: 'Contraseña:', type: 'password', placeholder: 'Contraseña' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
 
         console.log({credentials})
+
         // return { name: 'Juan', correo: 'juan@google.com', role: 'admin'};
+        
         return await dbUsers.checkUserEmailPassword( credentials!.email, credentials!.password )
 
       }
